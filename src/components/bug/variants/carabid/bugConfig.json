@@ -1,0 +1,95 @@
+{
+  "variantName": "Carabid Beetle",
+  "anatomy": [
+    {
+      "name": "body",
+      "path": "/asset/carabid/body.png",
+      "pivotX": 0,
+      "pivotY": 0,
+      "offsetX": -214,
+      "offsetY": -378,
+      "minAngle": -1,
+      "maxAngle": 1
+    },
+    {
+      "name": "left_antenna",
+      "path": "/asset/carabid/left_antenna.png",
+      "pivotX": -55,
+      "pivotY": -310,
+      "offsetX": -194,
+      "offsetY": -178,
+      "minAngle": -3,
+      "maxAngle": 29
+    },
+    {
+      "name": "left_fore_leg",
+      "path": "/asset/carabid/left_fore_leg.png",
+      "pivotX": -125,
+      "pivotY": -145,
+      "offsetX": -242,
+      "offsetY": -247,
+      "minAngle": -55,
+      "maxAngle": 14
+    },
+    {
+      "name": "left_hind_leg",
+      "path": "/asset/carabid/left_hind_leg.png",
+      "pivotX": -172,
+      "pivotY": 136,
+      "offsetX": -156,
+      "offsetY": -30,
+      "minAngle": -15,
+      "maxAngle": 59
+    },
+    {
+      "name": "left_middle_leg",
+      "path": "/asset/carabid/left_middle_leg.png",
+      "pivotX": -159,
+      "pivotY": -40,
+      "offsetX": -270,
+      "offsetY": -47,
+      "minAngle": -21,
+      "maxAngle": 54
+    },
+    {
+      "name": "right_antenna",
+      "path": "/asset/carabid/right_antenna.png",
+      "pivotX": 57,
+      "pivotY": -310,
+      "offsetX": -35,
+      "offsetY": -186,
+      "minAngle": -28,
+      "maxAngle": 4
+    },
+    {
+      "name": "right_fore_leg",
+      "path": "/asset/carabid/right_fore_leg.png",
+      "pivotX": 125,
+      "pivotY": -143,
+      "offsetX": -37,
+      "offsetY": -247,
+      "minAngle": -14,
+      "maxAngle": 63
+    },
+    {
+      "name": "right_hind_leg",
+      "path": "/asset/carabid/right_hind_leg.png",
+      "pivotX": 175,
+      "pivotY": 134,
+      "offsetX": -46,
+      "offsetY": -45,
+      "minAngle": -99,
+      "maxAngle": 99
+    },
+    {
+      "name": "right_middle_leg",
+      "path": "/asset/carabid/right_middle_leg.png",
+      "pivotX": 160,
+      "pivotY": -38,
+      "offsetX": -32,
+      "offsetY": -62,
+      "minAngle": -48,
+      "maxAngle": 17
+    }
+  ]
+}
