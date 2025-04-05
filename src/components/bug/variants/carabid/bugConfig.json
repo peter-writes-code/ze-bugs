@@ -78,8 +78,8 @@
       "pivotY": 134,
       "offsetX": -46,
       "offsetY": -45,
-      "minAngle": -99,
-      "maxAngle": 99
+      "minAngle": -59,
+      "maxAngle": 15
     },
     {
       "name": "right_middle_leg",
