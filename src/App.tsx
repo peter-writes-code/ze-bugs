@@ -1,17 +1,16 @@
 import React from 'react';
-import { Button, Container, Typography } from '@mui/material';
-import './App.css';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from './routes';
+import Anatomy from './routes/anatomy';
 
 function App() {
   return (
-    <Container maxWidth="sm">
-      <Typography variant="h4" component="h1" gutterBottom>
-        Welcome to Ze-Bugs
-      </Typography>
-      <Button variant="contained" color="primary">
-        Click Me
-      </Button>
-    </Container>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/anatomy" element={<Anatomy />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
