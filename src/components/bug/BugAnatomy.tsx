@@ -8,7 +8,15 @@ interface BugAnatomyProps {
 
 function BugAnatomy({ variant, scale = 1 }: BugAnatomyProps) {
   return (
-    <div style={{ position: 'relative' }}>
+    <div 
+      style={{ 
+        position: 'relative',
+        userSelect: "none",
+        WebkitUserSelect: "none",
+        MozUserSelect: "none",
+        msUserSelect: "none",
+      }}
+    >
       <Bug variant={variant} scale={scale} anatomy />
       <div
         style={{

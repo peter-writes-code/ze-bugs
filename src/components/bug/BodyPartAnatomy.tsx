@@ -85,7 +85,9 @@ function BodyPartAnatomy({
           pivotY={pivotY}
           offsetX={offsetX}
           offsetY={offsetY}
-          angle={angle}
+          minAngle={minAngle}
+          maxAngle={maxAngle}
+          angleOverride={angle}
         />
         <div
           style={{
