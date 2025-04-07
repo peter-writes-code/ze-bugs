@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 interface BodyPartProps {
   path: string;
@@ -6,7 +6,11 @@ interface BodyPartProps {
   pivotY: number;
   offsetX: number;
   offsetY: number;
-  angle?: number;
+  name?: string;
+  heartBeatStamp?: string;
+  minAngle: number;
+  maxAngle: number;
+  angleOverride?: number;
 }
 
 function BodyPart({
@@ -15,13 +19,49 @@ function BodyPart({
   pivotY,
   offsetX,
   offsetY,
-  angle = 0,
+  name = '',
+  heartBeatStamp = '',
+  minAngle,
+  maxAngle,
+  angleOverride,
 }: BodyPartProps) {
+  const [angle, setAngle] = useState(minAngle);
+  const [isIncreasing, setIsIncreasing] = useState(true);
+  const INCREMENT = 11.5; // Constant increment value
+  
+  const handleMove = () => {
+    setAngle(prevAngle => {
+      if (isIncreasing) {
+        const newAngle = prevAngle + INCREMENT;
+        if (newAngle >= maxAngle) {
+          setIsIncreasing(false);
+          return maxAngle;
+        }
+        return newAngle;
+      } else {
+        const newAngle = prevAngle - INCREMENT;
+        if (newAngle <= minAngle) {
+          setIsIncreasing(true);
+          return minAngle;
+        }
+        return newAngle;
+      }
+    });
+  };
+
+  useEffect(() => {
+    if (heartBeatStamp && angleOverride === undefined) {
+      handleMove();
+    }
+  }, [heartBeatStamp]);
+
+  const currentAngle = angleOverride !== undefined ? angleOverride : angle;
+
   return (
     <div
       style={{
         position: "absolute",
-        transform: `translate(${pivotX}px, ${pivotY}px) rotate(${angle}deg)`,
+        transform: `translate(${pivotX}px, ${pivotY}px) rotate(${currentAngle}deg)`,
         transformOrigin: "0px 0px",
       }}
     >
