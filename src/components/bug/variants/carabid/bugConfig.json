@@ -1,5 +1,8 @@
 {
   "variantName": "Carabid Beetle",
+  "variantNickName": "Carl",
+  "minScale": 0.45,
+  "maxScale": 0.54,
   "anatomy": [
     {
       "name": "body",
@@ -9,7 +12,10 @@
       "offsetX": -27,
       "offsetY": -42,
       "minAngle": 0,
-      "maxAngle": 0
+      "maxAngle": 0,
+      "increment": 0,
+      "startPositive": true,
+      "motion": []
     },
     {
       "name": "left_antenna",
@@ -19,37 +25,10 @@
       "offsetX": -25,
       "offsetY": -23,
       "minAngle": -3,
-      "maxAngle": 39
-    },
-    {
-      "name": "left_fore_leg",
-      "path": "/asset/carabid/left_fore_leg.png",
-      "pivotX": -16,
-      "pivotY": -12,
-      "offsetX": -31,
-      "offsetY": -32,
-      "minAngle": -55,
-      "maxAngle": 14
-    },
-    {
-      "name": "left_hind_leg",
-      "path": "/asset/carabid/left_hind_leg.png",
-      "pivotX": -22,
-      "pivotY": 24,
-      "offsetX": -20,
-      "offsetY": -4,
-      "minAngle": -15,
-      "maxAngle": 59
-    },
-    {
-      "name": "left_middle_leg",
-      "path": "/asset/carabid/left_middle_leg.png",
-      "pivotX": -20,
-      "pivotY": 3,
-      "offsetX": -35,
-      "offsetY": -6,
-      "minAngle": -21,
-      "maxAngle": 54
+      "maxAngle": 39,
+      "increment": 1.9,
+      "startPositive": true,
+      "motion": ["crawl", "inspect"]
     },
     {
       "name": "right_antenna",
@@ -59,7 +38,23 @@
       "offsetX": -4,
       "offsetY": -24,
       "minAngle": -38,
-      "maxAngle": 4
+      "maxAngle": 4,
+      "increment": 1.9,
+      "startPositive": false,
+      "motion": ["crawl", "inspect"]
+    },
+    {
+      "name": "left_fore_leg",
+      "path": "/asset/carabid/left_fore_leg.png",
+      "pivotX": -16,
+      "pivotY": -12,
+      "offsetX": -31,
+      "offsetY": -32,
+      "minAngle": -55,
+      "maxAngle": 14,
+      "increment": 9.5,
+      "startPositive": false,
+      "motion": ["crawl"]
     },
     {
       "name": "right_fore_leg",
@@ -69,17 +64,23 @@
       "offsetX": -5,
       "offsetY": -32,
       "minAngle": -14,
-      "maxAngle": 63
+      "maxAngle": 63,
+      "increment": 9.5,
+      "startPositive": true,
+      "motion": ["crawl"]
     },
     {
-      "name": "right_hind_leg",
-      "path": "/asset/carabid/right_hind_leg.png",
-      "pivotX": 22,
-      "pivotY": 24,
-      "offsetX": -6,
+      "name": "left_middle_leg",
+      "path": "/asset/carabid/left_middle_leg.png",
+      "pivotX": -20,
+      "pivotY": 3,
+      "offsetX": -35,
       "offsetY": -6,
-      "minAngle": -59,
-      "maxAngle": 15
+      "minAngle": -21,
+      "maxAngle": 54,
+      "increment": 9.5,
+      "startPositive": true,
+      "motion": ["crawl"]
     },
     {
       "name": "right_middle_leg",
@@ -89,7 +90,55 @@
       "offsetX": -4,
       "offsetY": -8,
       "minAngle": -48,
-      "maxAngle": 17
+      "maxAngle": 17,
+      "increment": 9.5,
+      "startPositive": false,
+      "motion": ["crawl"]
+    },
+    {
+      "name": "left_hind_leg",
+      "path": "/asset/carabid/left_hind_leg.png",
+      "pivotX": -22,
+      "pivotY": 24,
+      "offsetX": -20,
+      "offsetY": -4,
+      "minAngle": -15,
+      "maxAngle": 59,
+      "increment": 9.5,
+      "startPositive": false,
+      "motion": ["crawl"]
+    },
+    {
+      "name": "right_hind_leg",
+      "path": "/asset/carabid/right_hind_leg.png",
+      "pivotX": 22,
+      "pivotY": 24,
+      "offsetX": -6,
+      "offsetY": -6,
+      "minAngle": -59,
+      "maxAngle": 15,
+      "increment": 9.5,
+      "startPositive": true,
+      "motion": ["crawl"]
+    }
+  ],
+  "motion": [
+    {
+      "name": "crawl",
+      "minDuration": 800,
+      "maxDuration": 4500,
+      "distance": 29000,
+      "radius": 4
+    },
+    {
+      "name": "wait",
+      "minDuration": 400,
+      "maxDuration": 3600
+    },
+    {
+      "name": "inspect",
+      "minDuration": 900,
+      "maxDuration": 2700
     }
   ]
 }

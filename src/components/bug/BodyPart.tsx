@@ -11,49 +11,59 @@ interface BodyPartProps {
   minAngle: number;
   maxAngle: number;
   angleOverride?: number;
+  increment: number;
+  startPositive: boolean;
 }
 
-function BodyPart({
+function areEqual(prevProps: BodyPartProps, nextProps: BodyPartProps) {
+  return (
+    prevProps.heartBeatStamp === nextProps.heartBeatStamp &&
+    prevProps.angleOverride === nextProps.angleOverride
+  );
+}
+
+const BodyPart = React.memo(function BodyPart({
   path,
   pivotX,
   pivotY,
   offsetX,
   offsetY,
-  name = '',
-  heartBeatStamp = '',
+  name = "",
+  heartBeatStamp = "",
   minAngle,
   maxAngle,
   angleOverride,
+  increment,
+  startPositive,
 }: BodyPartProps) {
-  const [angle, setAngle] = useState(minAngle);
-  const [isIncreasing, setIsIncreasing] = useState(true);
-  const INCREMENT = 11.5; // Constant increment value
-  
-  const handleMove = () => {
-    setAngle(prevAngle => {
-      if (isIncreasing) {
-        const newAngle = prevAngle + INCREMENT;
-        if (newAngle >= maxAngle) {
-          setIsIncreasing(false);
-          return maxAngle;
-        }
-        return newAngle;
-      } else {
-        const newAngle = prevAngle - INCREMENT;
-        if (newAngle <= minAngle) {
-          setIsIncreasing(true);
-          return minAngle;
-        }
-        return newAngle;
-      }
-    });
-  };
+  const [angle, setAngle] = useState(() => {
+    // Initialize with a random angle within the allowed range
+    const range = maxAngle - minAngle;
+    return minAngle + Math.random() * range;
+  });
+  const [isIncreasing, setIsIncreasing] = useState(startPositive);
 
   useEffect(() => {
-    if (heartBeatStamp && angleOverride === undefined) {
-      handleMove();
+    if (heartBeatStamp) {
+      setAngle((prevAngle) => {
+        if (isIncreasing) {
+          const newAngle = prevAngle + increment;
+          if (newAngle >= maxAngle) {
+            setIsIncreasing(false);
+            return maxAngle;
+          }
+          return newAngle;
+        } else {
+          const newAngle = prevAngle - increment;
+          if (newAngle <= minAngle) {
+            setIsIncreasing(true);
+            return minAngle;
+          }
+          return newAngle;
+        }
+      });
     }
-  }, [heartBeatStamp]);
+  }, [heartBeatStamp, increment, isIncreasing, maxAngle, minAngle]);
 
   const currentAngle = angleOverride !== undefined ? angleOverride : angle;
 
@@ -80,6 +90,7 @@ function BodyPart({
       />
     </div>
   );
-}
+},
+areEqual);
 
 export default BodyPart;

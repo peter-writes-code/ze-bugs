@@ -4,10 +4,9 @@ import BodyPartAnatomy from './BodyPartAnatomy';
 
 interface BugAnatomyProps {
   variant: string;
-  scale?: number;
 }
 
-function BugAnatomy({ variant, scale = 1 }: BugAnatomyProps) {
+function BugAnatomy({ variant }: BugAnatomyProps) {
   return (
     <div 
       style={{ 
@@ -19,9 +18,12 @@ function BugAnatomy({ variant, scale = 1 }: BugAnatomyProps) {
       }}
     >
       <Bug 
-        variant={variant} 
-        scale={scale} 
+        variant={variant}
         BodyPartDecorator={BodyPartAnatomy}
+        scaleOverride={5}
+        xOverride={0}
+        yOverride={0}
+        rotationOverride={0}
       />
       <div
         style={{
