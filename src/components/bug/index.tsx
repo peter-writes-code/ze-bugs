@@ -102,6 +102,7 @@ function Bug({
         });
       }
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [heartBeatStamp, currentMotion, scale]);
 
   // Add effect to handle movement changes
@@ -169,6 +170,7 @@ function Bug({
     } else {
       stopPulse();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentMotion]);
 
   useEffect(() => {
@@ -199,7 +201,8 @@ function Bug({
       if (motionTimeoutId) clearTimeout(motionTimeoutId);
       stopPulse();
     };
-  }, [freeToMove]); // Add freeToMove to dependency array
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [freeToMove]);
 
   return (
     <div
