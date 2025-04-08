@@ -20,7 +20,7 @@ function Animate() {
           justifyContent: 'center' 
         }}
       >
-        <Bug variant="carabid" scale={0.064} heartBeat={isAnimated} />
+        <Bug variant="carabid" scale={0.5} heartBeat={isAnimated} />
         <Box sx={{ mb: 2, marginTop: 8 }}>
           <Button
             variant="contained"

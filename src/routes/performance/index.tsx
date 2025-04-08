@@ -18,13 +18,13 @@ function Performance() {
   useEffect(() => {
     const generateBugs = () => {
       const newBugs: BugInstance[] = [];
-      for (let i = 0; i < 196; i++) {
+      for (let i = 0; i < 96; i++) {
         newBugs.push({
           id: i,
           x: Math.random() * window.innerWidth,
           y: Math.random() * window.innerHeight,
           rotation: Math.random() * 360,
-          scale: 0.056 + Math.random() * (0.064 - 0.056),
+          scale: 0.5,
         });
       }
       setBugs(newBugs);
