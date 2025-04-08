@@ -44,7 +44,7 @@ function Home() {
             }}
           >
             Feel free to clone or fork the code and explore for yourself. Check
-            back for latests developments.
+            back for the latests developments.
           </Typography>
           <Paper sx={{ p: 2, mt: 5 }}>
             <Typography variant="subtitle1">April 8, 2025</Typography>
