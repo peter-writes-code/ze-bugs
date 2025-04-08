@@ -92,12 +92,13 @@ function BodyPartAnatomy({
         <div
           style={{
             position: "absolute",
-            top: pivotY - 8,
-            left: pivotX - 8,
-            width: "16px",
-            height: "16px",
+            top: pivotY - 1,
+            left: pivotX - 1,
+            width: "2px",
+            height: "2px",
             borderRadius: "50%",
             backgroundColor: "red",
+            zIndex: 1,
           }}
         />
       </div>

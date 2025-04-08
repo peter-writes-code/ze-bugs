@@ -19,9 +19,9 @@ function Anatomy() {
             marginBottom: "120px",
           }}
         >
-          <BugAnatomy variant="carabid" scale={0.64} />
+          <BugAnatomy variant="carabid" scale={5} />
         </div>
-        <Bug variant="carabid" scale={0.08} />
+        <Bug variant="carabid" scale={0.5} />
       </Container>
     </>
   );
