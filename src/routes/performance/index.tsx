@@ -18,7 +18,7 @@ function Performance() {
   useEffect(() => {
     const generateBugs = () => {
       const newBugs: BugInstance[] = [];
-      for (let i = 0; i < 96; i++) {
+      for (let i = 0; i < 196; i++) {
         newBugs.push({
           id: i,
           x: Math.random() * window.innerWidth,

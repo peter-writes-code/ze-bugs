@@ -1,12 +1,19 @@
 import React, { useEffect, useState } from "react";
 import BodyPart from "./BodyPart";
-import BodyPartAnatomy from "./BodyPartAnatomy";
 
 interface BugProps {
   variant: string;
   scale?: number;
-  anatomy?: boolean;
   heartBeat?: boolean;
+  BodyPartDecorator?: React.ComponentType<{
+    path: string;
+    pivotX: number;
+    pivotY: number;
+    offsetX: number;
+    offsetY: number;
+    minAngle: number;
+    maxAngle: number;
+  }>;
 }
 
 interface AnatomyPart {
@@ -20,7 +27,7 @@ interface AnatomyPart {
   maxAngle: number;
 }
 
-function Bug({ variant, scale = 1, anatomy = false, heartBeat = false }: BugProps) {
+function Bug({ variant, scale = 1, heartBeat = false, BodyPartDecorator }: BugProps) {
   const config = require(`./variants/${variant}/bugConfig.json`);
   const [heartBeatStamp, setHeartBeatStamp] = useState<string>('');
 
@@ -56,32 +63,31 @@ function Bug({ variant, scale = 1, anatomy = false, heartBeat = false }: BugProp
         msUserSelect: "none",
       }}
     >
-      {!anatomy && config.anatomy.map((part: AnatomyPart) => (
+      {config.anatomy.map((part: AnatomyPart) => (
         <div key={part.name}>
-          <BodyPart
-            path={part.path}
-            pivotX={part.pivotX}
-            pivotY={part.pivotY}
-            offsetX={part.offsetX}
-            offsetY={part.offsetY}
-            name={part.name}
-            heartBeatStamp={heartBeatStamp}
-            minAngle={part.minAngle}
-            maxAngle={part.maxAngle}
-          />
-        </div>
-      ))}
-      {anatomy && config.anatomy.map((part: AnatomyPart) => (
-        <div key={part.name}>
-          <BodyPartAnatomy
-            path={part.path}
-            pivotX={part.pivotX}
-            pivotY={part.pivotY}
-            offsetX={part.offsetX}
-            offsetY={part.offsetY}
-            minAngle={part.minAngle}
-            maxAngle={part.maxAngle}
-          />
+          {BodyPartDecorator ? (
+            <BodyPartDecorator
+              path={part.path}
+              pivotX={part.pivotX}
+              pivotY={part.pivotY}
+              offsetX={part.offsetX}
+              offsetY={part.offsetY}
+              minAngle={part.minAngle}
+              maxAngle={part.maxAngle}
+            />
+          ) : (
+            <BodyPart
+              path={part.path}
+              pivotX={part.pivotX}
+              pivotY={part.pivotY}
+              offsetX={part.offsetX}
+              offsetY={part.offsetY}
+              name={part.name}
+              heartBeatStamp={heartBeatStamp}
+              minAngle={part.minAngle}
+              maxAngle={part.maxAngle}
+            />
+          )}
         </div>
       ))}
     </div>

@@ -1,5 +1,6 @@
 import React from 'react';
 import Bug from './index';
+import BodyPartAnatomy from './BodyPartAnatomy';
 
 interface BugAnatomyProps {
   variant: string;
@@ -17,7 +18,11 @@ function BugAnatomy({ variant, scale = 1 }: BugAnatomyProps) {
         msUserSelect: "none",
       }}
     >
-      <Bug variant={variant} scale={scale} anatomy />
+      <Bug 
+        variant={variant} 
+        scale={scale} 
+        BodyPartDecorator={BodyPartAnatomy}
+      />
       <div
         style={{
           position: 'absolute',
