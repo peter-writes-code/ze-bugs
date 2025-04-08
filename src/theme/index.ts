@@ -12,7 +12,7 @@ const theme = createTheme({
       contrastText: '#333',
     },
     background: {
-      default: '#FFF8E7',    // Soft warm beige
+      default: '#FFFCEB',    // Soft warm beige
       paper: '#FFFFFF',
     },
     text: {

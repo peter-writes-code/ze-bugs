@@ -9,6 +9,8 @@ interface BodyPartAnatomyProps {
   offsetY: number;
   minAngle: number;
   maxAngle: number;
+  increment: number;
+  startPositive: boolean;
 }
 
 function BodyPartAnatomy({
@@ -19,6 +21,8 @@ function BodyPartAnatomy({
   offsetY,
   minAngle,
   maxAngle,
+  increment,
+  startPositive,
 }: BodyPartAnatomyProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
@@ -87,6 +91,8 @@ function BodyPartAnatomy({
           offsetY={offsetY}
           minAngle={minAngle}
           maxAngle={maxAngle}
+          increment={increment}
+          startPositive={startPositive}
           angleOverride={angle}
         />
         <div
@@ -106,9 +112,8 @@ function BodyPartAnatomy({
         <div
           style={{
             position: "fixed",
-            bottom: "20px",
-            left: "50%",
-            transform: "translateX(-50%)",
+            left: -40,
+            top:  -60,
             backgroundColor: "rgba(0, 0, 0, 0.7)",
             color: "white",
             padding: "8px 16px",
@@ -116,6 +121,7 @@ function BodyPartAnatomy({
             zIndex: 1000,
             pointerEvents: "none",
             userSelect: "none",
+            scale: .2,
           }}
         >
           Angle: {Math.round(angle)}° (min: {minAngle}°, max: {maxAngle}°)

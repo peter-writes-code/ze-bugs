@@ -1,7 +1,6 @@
 import React from "react";
 import { Container } from "@mui/material";
 import BugAnatomy from "../../components/bug/BugAnatomy";
-import Bug from "../../components/bug";
 import Header from "../../components/Header";
 
 function Anatomy() {
@@ -19,9 +18,8 @@ function Anatomy() {
             marginBottom: "120px",
           }}
         >
-          <BugAnatomy variant="carabid" scale={5} />
+          <BugAnatomy variant="carabid" />
         </div>
-        <Bug variant="carabid" scale={0.5} />
       </Container>
     </>
   );
