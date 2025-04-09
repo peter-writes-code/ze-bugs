@@ -13,7 +13,7 @@
       "offsetY": -42,
       "minAngle": 0,
       "maxAngle": 0,
-      "increment": 0,
+      "increments": {},
       "startPositive": true,
       "motion": []
     },
@@ -26,9 +26,14 @@
       "offsetY": -23,
       "minAngle": -3,
       "maxAngle": 39,
-      "increment": 1.9,
+      "increments": {
+        "crawl": 1.9,
+        "inspect": 1.2,
+        "spin": 2.5,
+        "run": 3.8
+      },
       "startPositive": true,
-      "motion": ["crawl", "inspect"]
+      "motion": ["crawl", "inspect", "spin", "run"]
     },
     {
       "name": "right_antenna",
@@ -39,9 +44,14 @@
       "offsetY": -24,
       "minAngle": -38,
       "maxAngle": 4,
-      "increment": 1.9,
+      "increments": {
+        "crawl": 1.9,
+        "inspect": 1.2,
+        "spin": 2.5,
+        "run": 3.8
+      },
       "startPositive": false,
-      "motion": ["crawl", "inspect"]
+      "motion": ["crawl", "inspect", "spin", "run"]
     },
     {
       "name": "left_fore_leg",
@@ -50,11 +60,15 @@
       "pivotY": -12,
       "offsetX": -31,
       "offsetY": -32,
-      "minAngle": -55,
-      "maxAngle": 14,
-      "increment": 9.5,
-      "startPositive": false,
-      "motion": ["crawl"]
+      "minAngle": -25,
+      "maxAngle": 15,
+      "increments": {
+        "crawl": 9.5,
+        "spin": 9.0,
+        "run": 19.0
+      },
+      "startPositive": true,
+      "motion": ["crawl", "spin", "run"]
     },
     {
       "name": "right_fore_leg",
@@ -63,11 +77,15 @@
       "pivotY": -12,
       "offsetX": -5,
       "offsetY": -32,
-      "minAngle": -14,
-      "maxAngle": 63,
-      "increment": 9.5,
+      "minAngle": -15,
+      "maxAngle": 25,
+      "increments": {
+        "crawl": 9.5,
+        "spin": 9.0,
+        "run": 19.0
+      },
       "startPositive": true,
-      "motion": ["crawl"]
+      "motion": ["crawl", "spin", "run"]
     },
     {
       "name": "left_middle_leg",
@@ -76,11 +94,15 @@
       "pivotY": 3,
       "offsetX": -35,
       "offsetY": -6,
-      "minAngle": -21,
-      "maxAngle": 54,
-      "increment": 9.5,
-      "startPositive": true,
-      "motion": ["crawl"]
+      "minAngle": 5,
+      "maxAngle": 55,
+      "increments": {
+        "crawl": 10.5,
+        "spin": 9.0,
+        "run": 19.0
+      },
+      "startPositive": false,
+      "motion": ["crawl", "spin", "run"]
     },
     {
       "name": "right_middle_leg",
@@ -89,11 +111,15 @@
       "pivotY": 2,
       "offsetX": -4,
       "offsetY": -8,
-      "minAngle": -48,
-      "maxAngle": 17,
-      "increment": 9.5,
+      "minAngle": -55,
+      "maxAngle": -5,
+      "increments": {
+        "crawl": 10.5,
+        "spin": 9.0,
+        "run": 19.0
+      },
       "startPositive": false,
-      "motion": ["crawl"]
+      "motion": ["crawl", "spin", "run"]
     },
     {
       "name": "left_hind_leg",
@@ -102,11 +128,15 @@
       "pivotY": 24,
       "offsetX": -20,
       "offsetY": -4,
-      "minAngle": -15,
-      "maxAngle": 59,
-      "increment": 9.5,
-      "startPositive": false,
-      "motion": ["crawl"]
+      "minAngle": 0,
+      "maxAngle": 60,
+      "increments": {
+        "crawl": 10.5,
+        "spin": 9.0,
+        "run": 19.0
+      },
+      "startPositive": true,
+      "motion": ["crawl", "spin", "run"]
     },
     {
       "name": "right_hind_leg",
@@ -115,11 +145,15 @@
       "pivotY": 24,
       "offsetX": -6,
       "offsetY": -6,
-      "minAngle": -59,
-      "maxAngle": 15,
-      "increment": 9.5,
+      "minAngle": -60,
+      "maxAngle": 0,
+      "increments": {
+        "crawl": 10.5,
+        "spin": 9.0,
+        "run": 19.0
+      },
       "startPositive": true,
-      "motion": ["crawl"]
+      "motion": ["crawl", "spin", "run"]
     }
   ],
   "motion": [
@@ -127,6 +161,13 @@
       "name": "crawl",
       "minDuration": 800,
       "maxDuration": 4500,
+      "distance": 6000,
+      "radius": 3
+    },
+    {
+      "name": "run",
+      "minDuration": 900,
+      "maxDuration": 2700,
       "distance": 29000,
       "radius": 4
     },
@@ -139,6 +180,13 @@
       "name": "inspect",
       "minDuration": 900,
       "maxDuration": 2700
+    },
+    {
+      "name": "spin",
+      "minDuration": 200,
+      "maxDuration": 600,
+      "distance": 1000,
+      "radius": 5
     }
   ]
 }

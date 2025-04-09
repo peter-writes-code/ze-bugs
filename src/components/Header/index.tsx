@@ -9,6 +9,7 @@ function Header() {
   const routes = [
     { path: '/anatomy', label: 'Anatomy' },
     { path: '/animate', label: 'Animate' },
+    { path: '/motion', label: 'Motion' },
     { path: '/performance', label: 'Performance' },
   ];
 

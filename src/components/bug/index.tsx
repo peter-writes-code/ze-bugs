@@ -9,6 +9,7 @@ interface BugProps {
   yOverride?: number;
   rotationOverride?: number;
   onMovementChange?: (isMoving: boolean) => void;
+  forcedMotion?: string;
   BodyPartDecorator?: React.ComponentType<{
     path: string;
     pivotX: number;
@@ -17,7 +18,8 @@ interface BugProps {
     offsetY: number;
     minAngle: number;
     maxAngle: number;
-    increment: number;
+    increments: { [motion: string]: number };
+    currentMotion: string;
     startPositive: boolean;
   }>;
 }
@@ -31,7 +33,7 @@ interface AnatomyPart {
   offsetY: number;
   minAngle: number;
   maxAngle: number;
-  increment: number;
+  increments: { [motion: string]: number };
   startPositive: boolean;
   motion: string[];
 }
@@ -44,6 +46,7 @@ function Bug({
   yOverride,
   rotationOverride,
   onMovementChange,
+  forcedMotion,
   BodyPartDecorator,
 }: BugProps) {
   const config = require(`./variants/${variant}/bugConfig.json`);
@@ -53,29 +56,36 @@ function Bug({
       config.minScale + Math.random() * (config.maxScale - config.minScale)
     );
   }, [config.minScale, config.maxScale, scaleOverride]);
-  
+
   // Internal state for position and rotation
   const [position, setPosition] = useState(() => ({
     x: xOverride !== undefined ? xOverride : Math.random() * window.innerWidth,
-    y: yOverride !== undefined ? yOverride : Math.random() * window.innerHeight
+    y: yOverride !== undefined ? yOverride : Math.random() * window.innerHeight,
   }));
-  const [currentRotation, setCurrentRotation] = useState(() => 
+  const [currentRotation, setCurrentRotation] = useState(() =>
     rotationOverride !== undefined ? rotationOverride : Math.random() * 360
   );
   const [currentMotion, setCurrentMotion] = useState<string>("wait");
   const [isInMotion, setIsInMotion] = useState(false);
   const [heartBeatStamp, setHeartBeatStamp] = useState<string>("");
-  const [pulseTimeoutId, setPulseTimeoutId] = useState<NodeJS.Timeout | null>(null);
-  const [isTurningRight, setIsTurningRight] = useState(() => Math.random() < 0.5);
+  const [pulseTimeoutId, setPulseTimeoutId] = useState<NodeJS.Timeout | null>(
+    null
+  );
+  const [isTurningRight, setIsTurningRight] = useState(
+    () => Math.random() < 0.5
+  );
 
   // Update position on pulse if current motion has distance
   useEffect(() => {
     if (heartBeatStamp && currentMotion && currentMotion !== "wait") {
-      const currentMotionConfig = config.motion.find((m: any) => m.name === currentMotion);
+      const currentMotionConfig = config.motion.find(
+        (m: any) => m.name === currentMotion
+      );
       if (currentMotionConfig?.distance) {
         // Randomly change turning direction occasionally
-        if (Math.random() < 0.09) { // 2% chance per pulse to change direction
-          setIsTurningRight(prev => !prev);
+        if (Math.random() < 0.09) {
+          // 2% chance per pulse to change direction
+          setIsTurningRight((prev) => !prev);
         }
 
         // Apply fixed radius as turn rate in the current direction
@@ -83,14 +93,14 @@ function Bug({
         const turnAmount = radius * (isTurningRight ? 1 : -1);
         const newRotation = currentRotation + turnAmount;
         setCurrentRotation(newRotation);
-        
+
         const correctedAngle = newRotation - 90; // Apply -90 degree correction
         const angleInRadians = (correctedAngle * Math.PI) / 180;
         const stepDistance = (currentMotionConfig.distance / 1000) * scale; // Adjust distance by scale and make movement smoother
-        
-        setPosition(prev => {
-          let newX = prev.x + (stepDistance * Math.cos(angleInRadians));
-          let newY = prev.y + (stepDistance * Math.sin(angleInRadians));
+
+        setPosition((prev) => {
+          let newX = prev.x + stepDistance * Math.cos(angleInRadians);
+          let newY = prev.y + stepDistance * Math.sin(angleInRadians);
 
           // Wrap around screen edges
           if (newX < 0) newX = window.innerWidth;
@@ -102,28 +112,33 @@ function Bug({
         });
       }
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [heartBeatStamp, currentMotion, scale]);
 
   // Add effect to handle movement changes
   useEffect(() => {
-    if (onMovementChange) {
-      if (currentMotion && currentMotion !== "wait") {
-        if (!isInMotion) {
-          onMovementChange(true);
-          setIsInMotion(true);
-        }
-      } else {
-        if (isInMotion) {
-          onMovementChange(false);
-          setIsInMotion(false);
-        }
+    if (currentMotion && currentMotion !== "wait") {
+      if (!isInMotion) {
+        setIsInMotion(true);
+        onMovementChange && onMovementChange(true);
+      }
+    } else {
+      if (isInMotion && currentMotion === "wait") {
+        setIsInMotion(false);
+        onMovementChange && onMovementChange(false);
       }
     }
   }, [currentMotion, onMovementChange, isInMotion]);
 
   const selectRandomMotion = () => {
-    // If not free to move, force "wait" motion
+    // If forcedMotion is provided, use it instead of random selection
+    if (forcedMotion) {
+      setCurrentMotion(forcedMotion);
+      const motionConfig = config.motion.find((m: any) => m.name === forcedMotion);
+      return motionConfig.maxDuration;
+    }
+
+    // Existing random motion selection logic
     if (!freeToMove && !isInMotion) {
       const waitMotion = config.motion.find((m: any) => m.name === "wait");
       const duration = Math.floor(
@@ -170,7 +185,7 @@ function Bug({
     } else {
       stopPulse();
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentMotion]);
 
   useEffect(() => {
@@ -201,8 +216,8 @@ function Bug({
       if (motionTimeoutId) clearTimeout(motionTimeoutId);
       stopPulse();
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [freeToMove]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [freeToMove, forcedMotion]);
 
   return (
     <div
@@ -229,7 +244,8 @@ function Bug({
               offsetY={part.offsetY}
               minAngle={part.minAngle}
               maxAngle={part.maxAngle}
-              increment={part.increment}
+              increments={part.increments}
+              currentMotion={currentMotion}
               startPositive={part.startPositive}
             />
           ) : (
@@ -245,7 +261,8 @@ function Bug({
               }
               minAngle={part.minAngle}
               maxAngle={part.maxAngle}
-              increment={part.increment}
+              increments={part.increments}
+              currentMotion={currentMotion}
               startPositive={part.startPositive}
             />
           )}

@@ -11,7 +11,8 @@ interface BodyPartProps {
   minAngle: number;
   maxAngle: number;
   angleOverride?: number;
-  increment: number;
+  currentMotion: string;
+  increments: Record<string, number>;
   startPositive: boolean;
 }
 
@@ -33,18 +34,18 @@ const BodyPart = React.memo(function BodyPart({
   minAngle,
   maxAngle,
   angleOverride,
-  increment,
+  currentMotion,
+  increments,
   startPositive,
 }: BodyPartProps) {
-  const [angle, setAngle] = useState(() => {
-    // Initialize with a random angle within the allowed range
-    const range = maxAngle - minAngle;
-    return minAngle + Math.random() * range;
-  });
+  const initialAngle = (minAngle + maxAngle) / 2;
+  const [angle, setAngle] = useState(initialAngle);
   const [isIncreasing, setIsIncreasing] = useState(startPositive);
 
   useEffect(() => {
     if (heartBeatStamp) {
+      const increment = increments[currentMotion] || 0;
+      
       setAngle((prevAngle) => {
         if (isIncreasing) {
           const newAngle = prevAngle + increment;
@@ -63,7 +64,7 @@ const BodyPart = React.memo(function BodyPart({
         }
       });
     }
-  }, [heartBeatStamp, increment, isIncreasing, maxAngle, minAngle]);
+  }, [heartBeatStamp, increments, currentMotion, isIncreasing, maxAngle, minAngle]);
 
   const currentAngle = angleOverride !== undefined ? angleOverride : angle;
 
