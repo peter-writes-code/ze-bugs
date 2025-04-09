@@ -1,20 +1,22 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Home from './routes';
-import Anatomy from './routes/anatomy';
-import Animate from './routes/animate';
-import Performance from './routes/performance';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./routes";
+import Animate from "./routes/animate";
+import Motion from "./routes/motion";
+import Performance from "./routes/performance";
+import Anatomy from "./routes/anatomy";
 
 function App() {
   return (
-    <BrowserRouter>
+    <Router>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/anatomy" element={<Anatomy />} />
         <Route path="/animate" element={<Animate />} />
+        <Route path="/motion" element={<Motion />} />
         <Route path="/performance" element={<Performance />} />
+        <Route path="/anatomy" element={<Anatomy />} />
       </Routes>
-    </BrowserRouter>
+    </Router>
   );
 }
 

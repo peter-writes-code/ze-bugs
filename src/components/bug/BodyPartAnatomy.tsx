@@ -9,7 +9,8 @@ interface BodyPartAnatomyProps {
   offsetY: number;
   minAngle: number;
   maxAngle: number;
-  increment: number;
+  increments: Record<string, number>;
+  currentMotion: string;
   startPositive: boolean;
 }
 
@@ -21,12 +22,14 @@ function BodyPartAnatomy({
   offsetY,
   minAngle,
   maxAngle,
-  increment,
+  increments,
+  currentMotion,
   startPositive,
 }: BodyPartAnatomyProps) {
+  const initialAngle = (minAngle + maxAngle) / 2;
   const [isHovered, setIsHovered] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
-  const [angle, setAngle] = useState(0);
+  const [angle, setAngle] = useState(initialAngle);
   const [startY, setStartY] = useState(0);
   const [dragStartX, setDragStartX] = useState(0);
 
@@ -91,7 +94,8 @@ function BodyPartAnatomy({
           offsetY={offsetY}
           minAngle={minAngle}
           maxAngle={maxAngle}
-          increment={increment}
+          increments={increments}
+          currentMotion={currentMotion}
           startPositive={startPositive}
           angleOverride={angle}
         />
@@ -113,7 +117,7 @@ function BodyPartAnatomy({
           style={{
             position: "fixed",
             left: -40,
-            top:  -60,
+            top: -60,
             backgroundColor: "rgba(0, 0, 0, 0.7)",
             color: "white",
             padding: "8px 16px",
