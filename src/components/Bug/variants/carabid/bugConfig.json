@@ -185,7 +185,7 @@
       "name": "spin",
       "minDuration": 200,
       "maxDuration": 600,
-      "distance": 1000,
+      "distance": 100,
       "radius": 5
     }
   ]

@@ -1,6 +1,7 @@
 import React from 'react';
 import Bug from './index';
 import BodyPartAnatomy from './BodyPartAnatomy';
+import { v4 as uuidv4 } from 'uuid';
 
 interface BugAnatomyProps {
   variant: string;
@@ -18,6 +19,7 @@ function BugAnatomy({ variant }: BugAnatomyProps) {
       }}
     >
       <Bug 
+        guid={uuidv4()}
         variant={variant}
         BodyPartDecorator={BodyPartAnatomy}
         scaleOverride={5}
