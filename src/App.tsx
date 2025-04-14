@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Header from "./components/Header";
 import Home from "./routes";
 import Animate from "./routes/animate";
 import Motion from "./routes/motion";
@@ -9,6 +10,7 @@ import Anatomy from "./routes/anatomy";
 function App() {
   return (
     <Router>
+      <Header />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/animate" element={<Animate />} />
