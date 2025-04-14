@@ -47,7 +47,7 @@ function Performance() {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        pointerEvents: "none",
+        // Remove pointerEvents: "none" from here
       }}
     >
       <Box

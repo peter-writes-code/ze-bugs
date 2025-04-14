@@ -13,6 +13,7 @@ function Home() {
         alignItems: "center",
         justifyContent: "center",
         gap: 4,
+        mt: 9,
       }}
     >
       <Box
@@ -65,6 +66,17 @@ function Home() {
           back for the latests developments.
         </Typography>
         <Paper sx={{ p: 2, mt: 5 }}>
+          <Typography variant="subtitle2">April 14, 2025</Typography>
+          <Typography variant="h6" gutterBottom>
+            Optimization and hover behavior
+          </Typography>
+          <Typography variant="body1">
+            Refactored the bug component to cleaner patterns.<br/>
+            <br/>
+            Also try hovering over Carl now. He might make a run for it.
+          </Typography>
+        </Paper>
+        <Paper sx={{ p: 2, mt: 3 }}>
           <Typography variant="subtitle2">April 8, 2025</Typography>
           <Typography variant="h6" gutterBottom>
             Carl moves!

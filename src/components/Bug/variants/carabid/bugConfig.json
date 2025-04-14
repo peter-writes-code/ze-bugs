@@ -169,7 +169,8 @@
       "minDuration": 900,
       "maxDuration": 2700,
       "distance": 29000,
-      "radius": 4
+      "radius": 4,
+      "hoverOnly": true
     },
     {
       "name": "wait",

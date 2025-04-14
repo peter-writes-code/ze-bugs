@@ -1,4 +1,6 @@
-import React, { useEffect, useReducer, useCallback } from "react";
+import React, { useEffect, useReducer, useCallback, useState } from "react";
+import { keyframes } from "@emotion/react";
+import styled from "@emotion/styled";
 import BodyPart from "./BodyPart";
 
 interface BugProps {
@@ -51,33 +53,33 @@ interface BugState {
 }
 
 type BugAction =
-  | { type: 'SET_POSITION'; payload: { x: number; y: number } }
-  | { type: 'SET_ROTATION'; payload: number }
-  | { type: 'SET_MOTION'; payload: string }
-  | { type: 'SET_HEARTBEAT'; payload: string }
-  | { type: 'SET_MOTION_TIMEOUT'; payload: NodeJS.Timeout | null }
-  | { type: 'SET_PULSE_TIMEOUT'; payload: NodeJS.Timeout | null }
-  | { type: 'TOGGLE_TURNING_DIRECTION' }
-  | { type: 'UPDATE_MOVEMENT'; payload: { distance: number; radius: number } }
-  | { type: 'INITIALIZE_SCALE'; payload: number };
+  | { type: "SET_POSITION"; payload: { x: number; y: number } }
+  | { type: "SET_ROTATION"; payload: number }
+  | { type: "SET_MOTION"; payload: string }
+  | { type: "SET_HEARTBEAT"; payload: string }
+  | { type: "SET_MOTION_TIMEOUT"; payload: NodeJS.Timeout | null }
+  | { type: "SET_PULSE_TIMEOUT"; payload: NodeJS.Timeout | null }
+  | { type: "TOGGLE_TURNING_DIRECTION" }
+  | { type: "UPDATE_MOVEMENT"; payload: { distance: number; radius: number } }
+  | { type: "INITIALIZE_SCALE"; payload: number };
 
 function bugReducer(state: BugState, action: BugAction): BugState {
   switch (action.type) {
-    case 'SET_POSITION':
+    case "SET_POSITION":
       return { ...state, position: action.payload };
-    case 'SET_ROTATION':
+    case "SET_ROTATION":
       return { ...state, currentRotation: action.payload };
-    case 'SET_MOTION':
+    case "SET_MOTION":
       return { ...state, currentMotion: action.payload };
-    case 'SET_HEARTBEAT':
+    case "SET_HEARTBEAT":
       return { ...state, heartBeatStamp: action.payload };
-    case 'SET_MOTION_TIMEOUT':
+    case "SET_MOTION_TIMEOUT":
       return { ...state, motionTimeoutId: action.payload };
-    case 'SET_PULSE_TIMEOUT':
+    case "SET_PULSE_TIMEOUT":
       return { ...state, pulseTimeoutId: action.payload };
-    case 'TOGGLE_TURNING_DIRECTION':
+    case "TOGGLE_TURNING_DIRECTION":
       return { ...state, isTurningRight: !state.isTurningRight };
-    case 'UPDATE_MOVEMENT': {
+    case "UPDATE_MOVEMENT": {
       const { distance, radius } = action.payload;
       const turnAmount = radius * (state.isTurningRight ? 1 : -1);
       const newRotation = state.currentRotation + turnAmount;
@@ -97,15 +99,46 @@ function bugReducer(state: BugState, action: BugAction): BugState {
       return {
         ...state,
         position: { x: newX, y: newY },
-        currentRotation: newRotation
+        currentRotation: newRotation,
       };
     }
-    case 'INITIALIZE_SCALE':
+    case "INITIALIZE_SCALE":
       return { ...state, scale: action.payload };
     default:
       return state;
   }
 }
+
+const pulse = keyframes`
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+`;
+
+const PulseCircle = styled.div<{ $isVisible: boolean }>`
+  position: absolute;
+  top: -96px;
+  left: -96px;
+  width: 192px;
+  height: 192px;
+  border-radius: 50%;
+  border: 16px solid orange;
+  background: transparent;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  animation: ${pulse} 2s ease-in-out infinite;
+  opacity: ${(props) => (props.$isVisible ? 1 : 0)};
+  transition: opacity 0.3s ease-in-out;
+`;
 
 function Bug({
   guid,
@@ -123,26 +156,34 @@ function Bug({
 
   const initialState: BugState = {
     position: {
-      x: xOverride !== undefined ? xOverride : Math.random() * window.innerWidth,
-      y: yOverride !== undefined ? yOverride : Math.random() * window.innerHeight,
+      x:
+        xOverride !== undefined ? xOverride : Math.random() * window.innerWidth,
+      y:
+        yOverride !== undefined
+          ? yOverride
+          : Math.random() * window.innerHeight,
     },
-    currentRotation: rotationOverride !== undefined ? rotationOverride : Math.random() * 360,
+    currentRotation:
+      rotationOverride !== undefined ? rotationOverride : Math.random() * 360,
     currentMotion: "",
     heartBeatStamp: "",
     motionTimeoutId: null,
     pulseTimeoutId: null,
     isTurningRight: Math.random() < 0.5,
-    scale: scaleOverride !== undefined ? scaleOverride : 
-      config.minScale + Math.random() * (config.maxScale - config.minScale),
+    scale:
+      scaleOverride !== undefined
+        ? scaleOverride
+        : config.minScale + Math.random() * (config.maxScale - config.minScale),
   };
 
   const [state, dispatch] = useReducer(bugReducer, initialState);
+  const [isHovered, setIsHovered] = useState(false);
 
   const startPulse = useCallback(() => {
     const pulse = () => {
-      dispatch({ type: 'SET_HEARTBEAT', payload: new Date().toISOString() });
+      dispatch({ type: "SET_HEARTBEAT", payload: new Date().toISOString() });
       const timeoutId = setTimeout(pulse, 36);
-      dispatch({ type: 'SET_PULSE_TIMEOUT', payload: timeoutId });
+      dispatch({ type: "SET_PULSE_TIMEOUT", payload: timeoutId });
     };
     pulse();
   }, []);
@@ -150,18 +191,19 @@ function Bug({
   const stopPulse = useCallback(() => {
     if (state.pulseTimeoutId) {
       clearTimeout(state.pulseTimeoutId);
-      dispatch({ type: 'SET_PULSE_TIMEOUT', payload: null });
+      dispatch({ type: "SET_PULSE_TIMEOUT", payload: null });
     }
   }, [state.pulseTimeoutId]);
 
   const selectRandomMotion = useCallback(() => {
-    const motions = config.motion;
+    const motions = config.motion.filter((m: any) => !m.hoverOnly);
     let selectedMotion;
 
     if (freeToMove) {
       selectedMotion = motions[Math.floor(Math.random() * motions.length)];
     } else {
-      selectedMotion = motions.find((m: any) => m.name === "wait") || motions[0];
+      selectedMotion =
+        motions.find((m: any) => m.name === "wait") || motions[0];
     }
 
     const duration = Math.floor(
@@ -170,26 +212,30 @@ function Bug({
         selectedMotion.minDuration
     );
 
-    dispatch({ type: 'SET_MOTION', payload: selectedMotion.name });
+    dispatch({ type: "SET_MOTION", payload: selectedMotion.name });
     return duration;
   }, [config.motion, freeToMove]);
 
   useEffect(() => {
-    if (state.heartBeatStamp && state.currentMotion && state.currentMotion !== "wait") {
+    if (
+      state.heartBeatStamp &&
+      state.currentMotion &&
+      state.currentMotion !== "wait"
+    ) {
       const currentMotionConfig = config.motion.find(
         (m: any) => m.name === state.currentMotion
       );
       if (currentMotionConfig?.distance) {
         if (Math.random() < 0.09) {
-          dispatch({ type: 'TOGGLE_TURNING_DIRECTION' });
+          dispatch({ type: "TOGGLE_TURNING_DIRECTION" });
         }
 
         dispatch({
-          type: 'UPDATE_MOVEMENT',
+          type: "UPDATE_MOVEMENT",
           payload: {
             distance: currentMotionConfig.distance,
-            radius: currentMotionConfig.radius || 0
-          }
+            radius: currentMotionConfig.radius || 0,
+          },
         });
       }
     }
@@ -205,14 +251,22 @@ function Bug({
       onMovementChange?.(false, guid);
       stopPulse();
     }
-  }, [state.currentMotion, state.pulseTimeoutId, onMovementChange, startPulse, stopPulse, guid]);
+  }, [
+    state.currentMotion,
+    state.pulseTimeoutId,
+    onMovementChange,
+    startPulse,
+    stopPulse,
+    guid,
+  ]);
 
   useEffect(() => {
-    if (!state.motionTimeoutId && !forcedMotion) {  // Only start random motion cycle if no forced motion
+    if (!state.motionTimeoutId && !forcedMotion) {
+      // Only start random motion cycle if no forced motion
       const startRandomMotion = () => {
         const duration = selectRandomMotion();
         const timeoutId = setTimeout(startRandomMotion, duration);
-        dispatch({ type: 'SET_MOTION_TIMEOUT', payload: timeoutId });
+        dispatch({ type: "SET_MOTION_TIMEOUT", payload: timeoutId });
       };
       startRandomMotion();
     }
@@ -229,15 +283,40 @@ function Bug({
       // Clear any existing motion timeout
       if (state.motionTimeoutId) {
         clearTimeout(state.motionTimeoutId);
-        dispatch({ type: 'SET_MOTION_TIMEOUT', payload: null });
+        dispatch({ type: "SET_MOTION_TIMEOUT", payload: null });
       }
       // Set the forced motion directly
-      dispatch({ type: 'SET_MOTION', payload: forcedMotion });
+      dispatch({ type: "SET_MOTION", payload: forcedMotion });
     } else if (!state.motionTimeoutId) {
       // If we're leaving forced motion, restart random motion
       selectRandomMotion();
     }
   }, [forcedMotion, state.motionTimeoutId, selectRandomMotion]);
+
+  // Add this to handle hover motion
+  const handleHover = useCallback((hovered: boolean) => {
+    setIsHovered(hovered);
+    if (hovered && !forcedMotion) {
+      const runMotion = config.motion.find((m: any) => m.name === "run");
+      if (runMotion) {
+        const duration = Math.floor(
+          Math.random() * 
+          (runMotion.maxDuration - runMotion.minDuration) + 
+          runMotion.minDuration
+        );
+        dispatch({ type: "SET_MOTION", payload: "run" });
+        
+        // Clear existing timeout and set new one
+        if (state.motionTimeoutId) {
+          clearTimeout(state.motionTimeoutId);
+        }
+        const timeoutId = setTimeout(() => {
+          selectRandomMotion();
+        }, duration);
+        dispatch({ type: "SET_MOTION_TIMEOUT", payload: timeoutId });
+      }
+    }
+  }, [forcedMotion, config.motion, selectRandomMotion, state.motionTimeoutId]);
 
   return (
     <div
@@ -252,7 +331,10 @@ function Bug({
         MozUserSelect: "none",
         msUserSelect: "none",
       }}
+      onMouseEnter={() => handleHover(true)}
+      onMouseLeave={() => handleHover(false)}
     >
+      {isHovered && <PulseCircle $isVisible={isHovered} />}
       {config.anatomy.map((part: AnatomyPart) => (
         <div key={part.name}>
           {BodyPartDecorator ? (
@@ -277,7 +359,9 @@ function Bug({
               offsetY={part.offsetY}
               name={part.name}
               heartBeatStamp={
-                part.motion.includes(state.currentMotion) ? state.heartBeatStamp : ""
+                part.motion.includes(state.currentMotion)
+                  ? state.heartBeatStamp
+                  : ""
               }
               minAngle={part.minAngle}
               maxAngle={part.maxAngle}
