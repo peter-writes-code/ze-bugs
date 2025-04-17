@@ -62,7 +62,7 @@ function Home() {
             alignItems: "center",
             gap: 1,
             mb: 3,
-            mt: 2,
+            mt: 3,
           }}
         >
           <GitHubIcon fontSize="small" />
@@ -85,7 +85,7 @@ function Home() {
             interact with each other.
           </Typography>
         </Paper>{" "}
-        <Paper sx={{ p: 2, mt: 5 }}>
+        <Paper sx={{ p: 2, mt: 3 }}>
           <Typography variant="subtitle2">April 14, 2025</Typography>
           <Typography variant="h6" gutterBottom>
             Optimization and hover behavior
