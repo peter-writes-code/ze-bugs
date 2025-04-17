@@ -29,7 +29,7 @@
       "maxAngle": 39,
       "increments": {
         "crawl": 1.9,
-        "inspect": 1.2,
+        "inspect": 0.9,
         "spin": 2.5,
         "run": 3.8
       },
@@ -47,7 +47,7 @@
       "maxAngle": 4,
       "increments": {
         "crawl": 1.9,
-        "inspect": 1.2,
+        "inspect": 0.9,
         "spin": 2.5,
         "run": 3.8
       },
@@ -188,7 +188,7 @@
       "minDuration": 200,
       "maxDuration": 600,
       "distance": 100,
-      "radius": 2.7
+      "radius": 4.5
     }
   ]
 }
