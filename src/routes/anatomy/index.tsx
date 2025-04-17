@@ -1,7 +1,5 @@
 import React from "react";
 import { Container } from "@mui/material";
-import Bug from "../../components/Bug";
-import { v4 as uuidv4 } from 'uuid';
 import { useBugVariant } from '../../contexts/BugVariantContext';
 import BugAnatomy from "../../components/Bug/BugAnatomy";
 
