@@ -1,10 +1,11 @@
 import { Container, Box, Typography } from "@mui/material";
 import Bug from "../../components/Bug";
 import { v4 as uuidv4 } from 'uuid';
+import { useBugVariant } from '../../contexts/BugVariantContext';
 
 function Animate() {
-  const variant = "carabid";
-  const config = require(`../../components/Bug/variants/${variant}/bugConfig.json`);
+  const { selectedVariant } = useBugVariant();
+  const config = require(`../../components/Bug/variants/${selectedVariant}/bugConfig.json`);
 
   return (
     <Container
@@ -20,7 +21,7 @@ function Animate() {
     >
       <Bug
         guid={uuidv4()}
-        variant="carabid"
+        variant={selectedVariant}
         freeToMove
         xOverride={window.innerWidth / 2}
         yOverride={window.innerHeight / 2}

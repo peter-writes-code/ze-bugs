@@ -39,6 +39,7 @@ function bodyPartReducer(state: BodyPartState, action: BodyPartAction): BodyPart
 function areEqual(prevProps: BodyPartProps, nextProps: BodyPartProps) {
   return (
     prevProps.heartBeatStamp === nextProps.heartBeatStamp &&
+    prevProps.path === nextProps.path &&
     prevProps.angleOverride === nextProps.angleOverride
   );
 }
