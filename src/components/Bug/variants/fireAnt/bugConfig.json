@@ -1,0 +1,194 @@
+{
+  "variantName": "Fire Ant",
+  "variantNickName": "Frank",
+  "minScale": 0.45,
+  "maxScale": 0.54,
+  "anatomyScale": 5,
+  "anatomy": [
+    {
+      "name": "body",
+      "path": "/asset/fireAnt/body.png",
+      "pivotX": 0,
+      "pivotY": 0,
+      "offsetX": -12,
+      "offsetY": -26,
+      "minAngle": 0,
+      "maxAngle": 0,
+      "increments": {},
+      "startPositive": true,
+      "motion": []
+    },
+    {
+      "name": "left_antenna",
+      "path": "/asset/fireAnt/left_antenna.png",
+      "pivotX": -2,
+      "pivotY": -24,
+      "offsetX": -13,
+      "offsetY": -16,
+      "minAngle": 5,
+      "maxAngle": 45,
+      "increments": {
+        "crawl": 1.9,
+        "inspect": 2.2,
+        "spin": 2.5,
+        "run": 3.8
+      },
+      "startPositive": true,
+      "motion": ["crawl", "inspect", "spin", "run"]
+    },
+    {
+      "name": "right_antenna",
+      "path": "/asset/fireAnt/right_antenna.png",
+      "pivotX": 2,
+      "pivotY": -24,
+      "offsetX": -1,
+      "offsetY": -16,
+      "minAngle": -45,
+      "maxAngle": -5,
+      "increments": {
+        "crawl": 1.9,
+        "inspect": 2.4,
+        "spin": 2.5,
+        "run": 3.8
+      },
+      "startPositive": false,
+      "motion": ["crawl", "inspect", "spin", "run"]
+    },
+    {
+      "name": "left_fore_leg",
+      "path": "/asset/fireAnt/left_fore_leg.png",
+      "pivotX": -2,
+      "pivotY": -5,
+      "offsetX": -17,
+      "offsetY": -27,
+      "minAngle": -35,
+      "maxAngle": 8,
+      "increments": {
+        "crawl": 9.5,
+        "spin": 9.0,
+        "run": 22.0
+      },
+      "startPositive": true,
+      "motion": ["crawl", "spin", "run"]
+    },
+    {
+      "name": "right_fore_leg",
+      "path": "/asset/fireAnt/right_fore_leg.png",
+      "pivotX": 2,
+      "pivotY": -5,
+      "offsetX": -2,
+      "offsetY": -27,
+      "minAngle": 0,
+      "maxAngle": 35,
+      "increments": {
+        "crawl": 9.5,
+        "spin": 9.0,
+        "run": 22.0
+      },
+      "startPositive": true,
+      "motion": ["crawl", "spin", "run"]
+    },
+    {
+      "name": "left_middle_leg",
+      "path": "/asset/fireAnt/left_middle_leg.png",
+      "pivotX": -2,
+      "pivotY": 1,
+      "offsetX": -28,
+      "offsetY": -2,
+      "minAngle": -5,
+      "maxAngle": 55,
+      "increments": {
+        "crawl": 9.5,
+        "spin": 9.0,
+        "run": 22.0
+      },
+      "startPositive": false,
+      "motion": ["crawl", "spin", "run"]
+    },
+    {
+      "name": "right_middle_leg",
+      "path": "/asset/fireAnt/right_middle_leg.png",
+      "pivotX": 2,
+      "pivotY": 1,
+      "offsetX": -2,
+      "offsetY": -4,
+      "minAngle": -55,
+      "maxAngle": 5,
+      "increments": {
+        "crawl": 9.5,
+        "spin": 9.0,
+        "run": 22.0
+      },
+      "startPositive": false,
+      "motion": ["crawl", "spin", "run"]
+    },
+    {
+      "name": "left_hind_leg",
+      "path": "/asset/fireAnt/left_hind_leg.png",
+      "pivotX": -2,
+      "pivotY": 4,
+      "offsetX": -21,
+      "offsetY": -1,
+      "minAngle": -10,
+      "maxAngle": 48,
+      "increments": {
+        "crawl": 9.5,
+        "spin": 9.0,
+        "run": 22.0
+      },
+      "startPositive": true,
+      "motion": ["crawl", "spin", "run"]
+    },
+    {
+      "name": "right_hind_leg",
+      "path": "/asset/fireAnt/right_hind_leg.png",
+      "pivotX": 2,
+      "pivotY": 4,
+      "offsetX": -1,
+      "offsetY": -1,
+      "minAngle": -48,
+      "maxAngle": 10,
+      "increments": {
+        "crawl": 9.5,
+        "spin": 9.0,
+        "run": 22.0
+      },
+      "startPositive": true,
+      "motion": ["crawl", "spin", "run"]
+    }
+  ],
+  "motion": [
+    {
+      "name": "crawl",
+      "minDuration": 800,
+      "maxDuration": 4500,
+      "distance": 5600,
+      "radius": 0.7
+    },
+    {
+      "name": "run",
+      "minDuration": 900,
+      "maxDuration": 2700,
+      "distance": 32000,
+      "radius": 2,
+      "hoverOnly": true
+    },
+    {
+      "name": "wait",
+      "minDuration": 400,
+      "maxDuration": 3600
+    },
+    {
+      "name": "inspect",
+      "minDuration": 900,
+      "maxDuration": 2700
+    },
+    {
+      "name": "spin",
+      "minDuration": 200,
+      "maxDuration": 600,
+      "distance": 100,
+      "radius": 6.9
+    }
+  ]
+}

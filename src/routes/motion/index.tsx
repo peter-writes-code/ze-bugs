@@ -8,10 +8,11 @@ import {
 import { useState } from "react";
 import Bug from "../../components/Bug";
 import { v4 as uuidv4 } from 'uuid';
+import { useBugVariant } from '../../contexts/BugVariantContext';
 
 function Motion() {
-  const variant = "carabid";
-  const config = require(`../../components/Bug/variants/${variant}/bugConfig.json`);
+  const { selectedVariant } = useBugVariant();
+  const config = require(`../../components/Bug/variants/${selectedVariant}/bugConfig.json`);
   const [selectedMotion, setSelectedMotion] = useState<string>("wait");
 
   const handleMotionChange = (event: any) => {
@@ -48,7 +49,7 @@ function Motion() {
       </FormControl>
       <Bug
         guid={uuidv4()}
-        variant="carabid"
+        variant={selectedVariant}
         xOverride={window.innerWidth / 2}
         yOverride={window.innerHeight / 2}
         freeToMove

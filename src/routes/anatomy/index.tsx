@@ -1,22 +1,28 @@
 import React from "react";
 import { Container } from "@mui/material";
+import Bug from "../../components/Bug";
+import { v4 as uuidv4 } from 'uuid';
+import { useBugVariant } from '../../contexts/BugVariantContext';
 import BugAnatomy from "../../components/Bug/BugAnatomy";
 
 function Anatomy() {
+  const { selectedVariant } = useBugVariant();
+
   return (
-    <Container maxWidth="sm">
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          minHeight: "80vh",
-          paddingTop: "240px",
-          marginBottom: "120px",
-        }}
-      >
-        <BugAnatomy variant="carabid" />
-      </div>
+    <Container
+      maxWidth={false}
+      sx={{
+        pt: 8,
+        height: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <BugAnatomy
+        variant={selectedVariant}
+      />
     </Container>
   );
 }

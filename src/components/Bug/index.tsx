@@ -262,7 +262,6 @@ function Bug({
 
   useEffect(() => {
     if (!state.motionTimeoutId && !forcedMotion) {
-      // Only start random motion cycle if no forced motion
       const startRandomMotion = () => {
         const duration = selectRandomMotion();
         const timeoutId = setTimeout(startRandomMotion, duration);
@@ -280,20 +279,16 @@ function Bug({
 
   useEffect(() => {
     if (forcedMotion) {
-      // Clear any existing motion timeout
       if (state.motionTimeoutId) {
         clearTimeout(state.motionTimeoutId);
         dispatch({ type: "SET_MOTION_TIMEOUT", payload: null });
       }
-      // Set the forced motion directly
       dispatch({ type: "SET_MOTION", payload: forcedMotion });
     } else if (!state.motionTimeoutId) {
-      // If we're leaving forced motion, restart random motion
       selectRandomMotion();
     }
   }, [forcedMotion, state.motionTimeoutId, selectRandomMotion]);
 
-  // Add this to handle hover motion
   const handleHover = useCallback((hovered: boolean) => {
     setIsHovered(hovered);
     if (hovered && !forcedMotion) {
@@ -306,7 +301,6 @@ function Bug({
         );
         dispatch({ type: "SET_MOTION", payload: "run" });
         
-        // Clear existing timeout and set new one
         if (state.motionTimeoutId) {
           clearTimeout(state.motionTimeoutId);
         }
@@ -334,7 +328,7 @@ function Bug({
       onMouseEnter={() => handleHover(true)}
       onMouseLeave={() => handleHover(false)}
     >
-      {isHovered && <PulseCircle $isVisible={isHovered} />}
+      {isHovered && !BodyPartDecorator && <PulseCircle $isVisible={isHovered} />}
       {config.anatomy.map((part: AnatomyPart) => (
         <div key={part.name}>
           {BodyPartDecorator ? (

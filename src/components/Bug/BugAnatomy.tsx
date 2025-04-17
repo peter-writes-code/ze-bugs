@@ -8,6 +8,8 @@ interface BugAnatomyProps {
 }
 
 function BugAnatomy({ variant }: BugAnatomyProps) {
+  const config = require(`./variants/${variant}/bugConfig.json`);
+
   return (
     <div 
       style={{ 
@@ -22,10 +24,11 @@ function BugAnatomy({ variant }: BugAnatomyProps) {
         guid={uuidv4()}
         variant={variant}
         BodyPartDecorator={BodyPartAnatomy}
-        scaleOverride={5}
+        scaleOverride={config.anatomyScale}
         xOverride={0}
         yOverride={0}
         rotationOverride={0}
+        forcedMotion="wait"
       />
       <div
         style={{

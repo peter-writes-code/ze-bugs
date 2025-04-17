@@ -1,12 +1,14 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { Container, Slider, Typography, Box } from "@mui/material";
+import { Container, Box, Typography, Slider } from "@mui/material";
+import { useState, useCallback, useEffect } from "react";
 import Bug from "../../components/Bug";
+import { useBugVariant } from '../../contexts/BugVariantContext';
 
 interface BugInstance {
   id: number;
 }
 
 function Performance() {
+  const { selectedVariant } = useBugVariant();
   const [numberOfBugs, setNumberOfBugs] = useState<number>(() => 
     Math.floor(Math.random() * (33 - 3 + 1)) + 3
   );
@@ -47,7 +49,6 @@ function Performance() {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        // Remove pointerEvents: "none" from here
       }}
     >
       <Box
@@ -84,7 +85,7 @@ function Performance() {
         <Bug
           key={bug.id}
           guid={`bug-${bug.id}`}
-          variant="carabid"
+          variant={selectedVariant}
           freeToMove={movingBugGuids.length < MOVING_BUGS_CAP}
           onMovementChange={handleMovementChange}
         />

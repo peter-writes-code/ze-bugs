@@ -3,6 +3,7 @@
   "variantNickName": "Carl",
   "minScale": 0.45,
   "maxScale": 0.54,
+  "anatomyScale": 5,
   "anatomy": [
     {
       "name": "body",
@@ -63,8 +64,8 @@
       "minAngle": -25,
       "maxAngle": 15,
       "increments": {
-        "crawl": 9.5,
-        "spin": 9.0,
+        "crawl": 11.5,
+        "spin": 7.0,
         "run": 19.0
       },
       "startPositive": true,
@@ -80,8 +81,8 @@
       "minAngle": -15,
       "maxAngle": 25,
       "increments": {
-        "crawl": 9.5,
-        "spin": 9.0,
+        "crawl": 11.5,
+        "spin": 7.0,
         "run": 19.0
       },
       "startPositive": true,
@@ -94,11 +95,11 @@
       "pivotY": 3,
       "offsetX": -35,
       "offsetY": -6,
-      "minAngle": 5,
-      "maxAngle": 55,
+      "minAngle": 15,
+      "maxAngle": 75,
       "increments": {
-        "crawl": 10.5,
-        "spin": 9.0,
+        "crawl": 11.5,
+        "spin": 7.0,
         "run": 19.0
       },
       "startPositive": false,
@@ -111,11 +112,11 @@
       "pivotY": 2,
       "offsetX": -4,
       "offsetY": -8,
-      "minAngle": -55,
-      "maxAngle": -5,
+      "minAngle": -75,
+      "maxAngle": -15,
       "increments": {
-        "crawl": 10.5,
-        "spin": 9.0,
+        "crawl": 11.5,
+        "spin": 7.0,
         "run": 19.0
       },
       "startPositive": false,
@@ -131,8 +132,8 @@
       "minAngle": 0,
       "maxAngle": 60,
       "increments": {
-        "crawl": 10.5,
-        "spin": 9.0,
+        "crawl": 11.5,
+        "spin": 7.0,
         "run": 19.0
       },
       "startPositive": true,
@@ -148,8 +149,8 @@
       "minAngle": -60,
       "maxAngle": 0,
       "increments": {
-        "crawl": 10.5,
-        "spin": 9.0,
+        "crawl": 11.5,
+        "spin": 7.0,
         "run": 19.0
       },
       "startPositive": true,
@@ -161,15 +162,15 @@
       "name": "crawl",
       "minDuration": 800,
       "maxDuration": 4500,
-      "distance": 6000,
+      "distance": 6900,
       "radius": 3
     },
     {
       "name": "run",
       "minDuration": 900,
       "maxDuration": 2700,
-      "distance": 29000,
-      "radius": 4,
+      "distance": 24000,
+      "radius": 6,
       "hoverOnly": true
     },
     {
@@ -187,7 +188,7 @@
       "minDuration": 200,
       "maxDuration": 600,
       "distance": 100,
-      "radius": 5
+      "radius": 2.7
     }
   ]
 }
